@@ -103,6 +103,7 @@ def solve(rotated_puzzle, block_list, x=0):
           rotated_puzzle[y][x] = guess
           block_list[y//3+3*(x//3)][y%3+3*(x%3)] = guess
           
+          
           #recurse!
           if solve(rotated_puzzle, block_list,x):
               return True
@@ -118,26 +119,22 @@ def solve(rotated_puzzle, block_list, x=0):
 ##################################################################################
 #actully execute code
 
-puzzle = [[0,0,7,  0,4,0,  0,0,0],
-          [0,0,0,  0,0,8,  0,0,6],
-          [0,4,1,  0,0,0,  9,0,0],
-         
-          [0,0,0,  0,0,0,  1,7,0],
-          [0,0,0,  0,0,6,  0,0,0],
-          [0,0,0,  7,0,0,  2,0,0],
-         
-          [3,0,0,  0,0,0,  0,0,0],
-          [0,0,0,  1,2,0,  0,0,0],
-          [8,6,0,  0,7,0,  0,0,5]]
+
+#Take user input
 
 puzzle = []
 for i in range(9):
-  prp = "input row "+str(i)+":"
+  prp = "input row "+str(i+1)+":"
   x = input(prp)
   row = []
+  if (len(x) > 9):
+    print("Length of string entered is more than 9 will be trimed to first 9 numbers")
+  if (len(x) < 9):
+    print("Length of string is less the 9 numbers the remaining",9-len(x),"will be filled with zeros")
+    x = x.ljust(10, '0')
   for j in range(9):
-    abc = x[j]
-    row.append(int(abc))
+    abc = int(x[j])
+    row.append(abc)
   puzzle.append(row)
 
 
@@ -164,15 +161,13 @@ start = time.process_time()                                 #start timer
 
 rotated_puzzle = rotate_puzzle()
 blocks = block_list()
-solve(rotated_puzzle, blocks)
+if solve(rotated_puzzle, blocks):
 
-execute_time=(time.process_time() - start)                #end timer
-print("Took",round(execute_time,3),"seconds to solve")
-print()
-board_printer(puzzle)
-  
-
-
-
-
-      
+    execute_time=(time.process_time() - start)                #end timer
+    print("Took",round(execute_time,3),"seconds to solve")
+    print()
+    board_printer(puzzle)
+else:
+    execute_time=(time.process_time() - start)                #end timer
+    print("Took",round(execute_time,3),"seconds")
+    print("Puzzle is unsolveable!")
