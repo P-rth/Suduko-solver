@@ -1,6 +1,31 @@
 import time   #used to mesure how long the code took to execute
+import threading  #display current bord without slowing down the main process
+import os
+
+def filledpercent():
+  while solved != 1:
+    os.system("cls || clear")
+    board_printer(puzzle)
+    
 
 
+def board_printer(board):
+    """Prints the sudoku board nicely"""
+
+    for y in range(9):
+        s = ''
+
+        for x in range(9):
+            s += str(board[y][x]) + ' '
+
+            if not (x + 1) % 3:
+                s += '| '
+
+        print(s)
+
+        if not (y + 1) % 3:
+            print('-' * len(s))
+  
 
 def findempty():
   global puzzle
@@ -120,8 +145,21 @@ def solve(rotated_puzzle, block_list, x=0):
 #actully execute code
 
 
-#Take user input
-
+'''#Take user input
+puzzle = [[5,0,1,  3,0,0,  0,0,0],
+          [8,0,0,  0,0,8,  0,2,0],
+          [0,7,0,  0,1,0,  5,0,0],
+         
+          [4,0,0,  0,0,5,  3,0,0],
+          [0,1,0,  0,7,6,  0,0,6],
+          [0,0,3,  2,0,0,  2,0,0],
+         
+          [0,6,0,  5,0,0,  0,0,9],
+          [0,0,4,  0,0,0,  0,3,0],
+          [8,6,0,  0,0,9,  7,0,0]]  
+          '''    
+          
+          
 puzzle = []
 for i in range(9):
   prp = "input row "+str(i+1)+":"
@@ -137,37 +175,34 @@ for i in range(9):
     row.append(abc)
   puzzle.append(row)
 
+            
+###########################################################################
+#########################################################################
 
 
-def board_printer(board):
-    """Prints the sudoku board"""
 
-    for row in range(9):
-        s = ''
+solved = 0
+start = time.process_time()                       #start timer
 
-        for col in range(9):
-            s += str(board[row][col]) + ' '
-
-            if not (col + 1) % 3:
-                s += '| '
-
-        print(s)
-
-        if not (row + 1) % 3:
-            print('-' * len(s))
-
-
-start = time.process_time()                                 #start timer
+t1 = threading.Thread(target=filledpercent)
+t1.start()
 
 rotated_puzzle = rotate_puzzle()
 blocks = block_list()
 if solve(rotated_puzzle, blocks):
-
+    solved = 1
     execute_time=(time.process_time() - start)                #end timer
-    print("Took",round(execute_time,3),"seconds to solve")
+    time.sleep(1)
+    os.system("cls || clear")
+    print("Took",round(execute_time,4),"seconds to solve")
     print()
     board_printer(puzzle)
 else:
+    solved = 1
+    time.sleep(1)
+    os.system("cls || clear")
     execute_time=(time.process_time() - start)                #end timer
-    print("Took",round(execute_time,3),"seconds")
+    print("Took",round(execute_time,4),"seconds")
     print("Puzzle is unsolveable!")
+        
+t1.join()
