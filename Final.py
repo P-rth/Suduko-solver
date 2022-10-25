@@ -9,10 +9,10 @@ def filledpercent():
     
 
 
-def board_printer(board):
+def board_printer(board,rows=9):
     """Prints the sudoku board nicely"""
 
-    for y in range(9):
+    for y in range(rows):
         s = ''
 
         for x in range(9):
@@ -142,43 +142,44 @@ def solve(rotated_puzzle, block_list, x=0):
   
 ###################################################################################
 ##################################################################################
+#actully execute code
 
-#Take user input
+
+                                          #Take user input
 '''
-puzzle = [[5,0,1,  3,0,0,  0,0,0],
-          [8,0,0,  0,0,8,  0,2,0],
-          [0,7,0,  0,1,0,  5,0,0],
+puzzle = [[0,0,7,  0,4,0,  0,0,0],
+          [0,0,0,  0,0,8,  0,0,6],
+          [0,4,1,  0,0,0,  9,0,0],
          
-          [4,0,0,  0,0,5,  3,0,0],
-          [0,1,0,  0,7,6,  0,0,6],
-          [0,0,3,  2,0,0,  2,0,0],
+          [0,0,0,  0,0,0,  1,7,0],
+          [0,0,0,  0,0,6,  0,0,0],
+          [0,0,8,  7,0,0,  2,0,0],
          
-          [0,6,0,  5,0,0,  0,0,9],
-          [0,0,4,  0,0,0,  0,3,0],
-          [8,6,0,  0,0,9,  7,0,0]]  
-'''    
-          
-          
+          [3,0,0,  0,0,0,  0,0,0],
+          [0,0,0,  1,2,0,  0,0,0],
+          [8,6,0,  0,7,0,  0,0,5]]
+ 
+             
+'''   
+os.system("cls || clear")  
 puzzle = []
 for i in range(9):
+  
   prp = "input row "+str(i+1)+":"
   x = input(prp)
   row = []
-  if (len(x) > 9):
-    print("Length of string entered is more than 9 will be trimed to first 9 numbers")
-  if (len(x) < 9):
-    print("Length of string is less the 9 numbers the remaining",9-len(x),"will be filled with zeros")
-    x = x.ljust(10, '0')
+  x = x.ljust(10, '0')
   for j in range(9):
     abc = int(x[j])
     row.append(abc)
+  os.system("cls || clear")
   puzzle.append(row)
+  board_printer(puzzle,i+1)
 
             
-###########################################################################
-#########################################################################
+############################
 
-#actully execute code
+
 
 solved = 0
 start = time.process_time()                       #start timer
@@ -204,4 +205,4 @@ else:
     print("Took",round(execute_time,4),"seconds")
     print("Puzzle is unsolveable!")
         
-t1.join()               #wait for the thread to end 
+t1.join()
