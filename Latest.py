@@ -172,19 +172,20 @@ def solve(rotated_puzzle, block_list, x=0):
 
 
                                           #Take user input
-
+'''
 puzzle = [[0,0,7,  0,4,0,  0,0,0],
           [0,0,0,  0,0,8,  0,0,6],
           [0,4,1,  0,0,0,  9,0,0],
          
           [0,0,0,  0,0,0,  1,7,0],
-          [0,0,0,  0,0,6,  0,0,0],
+          [0,0,0,  0,0,6,  0,0,0],          #template puzzle
           [0,0,8,  7,0,0,  2,0,0],
          
           [3,0,0,  0,0,0,  0,0,0],
           [0,0,0,  1,2,0,  0,0,0],
           [8,6,0,  0,7,0,  0,0,5]]
 '''
+
 os.system("cls || clear")  
 puzzle = []
 for i in range(9):
@@ -199,7 +200,7 @@ for i in range(9):
   os.system("cls || clear")
   puzzle.append(row)
   board_printer(puzzle,i+1)
-'''
+
            
 ############################
 
